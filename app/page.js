@@ -1,95 +1,74 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client"
+import React, { useState } from "react"
+import './globals.css'
+import './page.module.css'
+
+const calNum1=[
+  {value:"c",},
+  {value:"DEL"},
+  {value:"%",},
+  {value:"/",},
+
+  {value:"7",},
+  {value:"8",},
+  {value:"9",},
+  {value:"*",},
+  
+  {value:"4",},
+  {value:"5",},
+  {value:"6",},
+  {value:"-",},
+  
+  {value:"1",},
+  {value:"2",},
+  {value:"3",},
+  {value:"+",},
+
+  {value:".",},
+  {value:"0",},
+  {value:"00",},
+  {value:"=",}, 
+]
 
 export default function Home() {
+const[input, setInput]=useState('')
+
+  const handleClick=(val)=>{
+    if(val==="c"){
+      setInput("")
+    }
+    else if (val==="="){
+      try{
+        setInput(eval(input))
+      }
+      catch(err){
+        alert("Enter Valid Input")
+      }
+    }
+    else if(val==="DEL"){
+      setInput(input.slice(0,-1))
+    }
+    else if(val==="%"){
+      setInput(eval(input)/100)
+    }
+    else{
+      setInput(input+val)
+    }
+  }
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+    <main className="main">
+      <div className="calculator">
+      <input className="input" value={input} placeholder="0"/>
+      <ul className='list-container'>
+        {calNum1.map(each=>
+          <li key={each.value} className='list-button'>
+            <button type="button" className="button" onClick={()=>handleClick(each.value)}>{each.value}
+            </button>
+          </li>
+          )}
+      </ul>
       </div>
     </main>
   )
 }
+
