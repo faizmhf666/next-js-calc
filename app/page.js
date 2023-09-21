@@ -34,6 +34,8 @@ export default function Home() {
 const[input, setInput]=useState('')
 
   const handleClick=(val)=>{
+    let audio = new Audio('https://res.cloudinary.com/dvu0weqay/video/upload/v1695284058/mixkit-hard-typewriter-click-1119_zczf57.wav')
+    audio.play()
     if(val==="c"){
       setInput("")
     }
